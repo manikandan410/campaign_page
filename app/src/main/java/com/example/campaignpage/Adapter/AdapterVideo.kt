@@ -17,8 +17,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AdapterVideo(
-    private var context:Context,
-    private var videoArrayList: ArrayList<ModelVideo>?
+    private var context: Context,
+    private var videoArrayList: ArrayList<ModelVideo>
 ) :RecyclerView.Adapter<AdapterVideo.HolderVideo>(){
 
 
@@ -118,6 +118,8 @@ class AdapterVideo(
         var titleTv:TextView = itemView.findViewById(R.id.titleTv)
         var timeTv:TextView = itemView.findViewById(R.id.timeTv)
         var progressBar:ProgressBar = itemView.findViewById(R.id.progressBar)
+
+
 
 
     }

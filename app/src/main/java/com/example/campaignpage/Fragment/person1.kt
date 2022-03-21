@@ -6,14 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
+import androidx.recyclerview.widget.RecyclerView
+import com.example.campaignpage.Adapter.AdapterVideo
+import com.example.campaignpage.AddVideoActivity
+import com.example.campaignpage.ModelVideo
 import com.example.campaignpage.R
-import com.example.campaignpage.Video
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class person1 : Fragment() {
-    private lateinit var person1: FrameLayout
+
+
+    private lateinit var addVideoFab : FloatingActionButton
+
+    //arraylist for video list
+    private lateinit var videoArrayList: ArrayList<ModelVideo>
+    //adapter
+    private lateinit var adapterVideo: AdapterVideo
+
+    private lateinit var videosRv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,16 +37,55 @@ class person1 : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_person1, container, false)
 
-        person1= root.findViewById(R.id.person1)
-        person1.setOnClickListener{
-            startActivity(Intent( this@person1.requireContext(), Video::class.java))
+
+        //function call to load video from firebase
+        loadVideosFromFirebase()
+
+        addVideoFab = root.findViewById(R.id.addVideoFab)
+        addVideoFab.setOnClickListener {
+            startActivity(Intent(this@person1.requireContext(), AddVideoActivity::class.java))
 
         }
 
-        return root
+          return root
 
 
-    }
+          }
+
+
+        private fun loadVideosFromFirebase() {
+            //init arraylist before adding data into it
+            videoArrayList = ArrayList()
+
+            //reference of firebase db
+            val ref = FirebaseDatabase.getInstance().getReference("Videos")
+            ref.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    //clear list before adding data into it
+                    videoArrayList.clear()
+                    for (ds in snapshot.children) {
+                        //get data as model
+                        val modelVideo = ds.getValue(ModelVideo::class.java)
+                        //add to array list
+                        videoArrayList.add(modelVideo!!)
+                    }
+                    //setup adapter
+                    adapterVideo = AdapterVideo(this@person1.requireContext(), videoArrayList)
+                    //set adapter to recyclerview
+                    videosRv = view!!.findViewById(R.id.videosRv) as RecyclerView
+                    videosRv.adapter = adapterVideo
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+
+        }
+
 
 
 }
