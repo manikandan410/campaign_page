@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campaignpage.*
-import com.example.campaignpage.Adapter.AdapterVideo
 import com.example.campaignpage.Adapter.AdapterVideo2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot

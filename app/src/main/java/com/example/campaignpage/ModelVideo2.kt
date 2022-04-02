@@ -8,6 +8,7 @@ class ModelVideo2 {
     var timestamp2: String? = null
     var videoUri2: String? = null
 
+
     //constructor
     constructor(){
         //firebase requires empty constructor
@@ -19,6 +20,7 @@ class ModelVideo2 {
         this.title2 = title2
         this.timestamp2 = timestamp2
         this.videoUri2 = videoUri2
+
     }
 
 }

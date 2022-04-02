@@ -1,18 +1,18 @@
 package com.example.campaignpage.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.VideoView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campaignpage.ModelVideo2
 import com.example.campaignpage.R
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.database.FirebaseDatabase
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,6 +41,7 @@ class AdapterVideo2(
         val timestamp2: String? = modelVideo2.timestamp2
         val videoUri2: String? = modelVideo2.videoUri2
 
+
         //format date e.g. 16/03/2022 11:38am
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp2!!.toLong()
@@ -50,6 +51,9 @@ class AdapterVideo2(
         holder.titleTv2.text = title2
         holder.timeTv2.text = formattedDateTime
         setVideoUrl(modelVideo2, holder)
+
+
+
     }
 
     private fun setVideoUrl(modelVideo: ModelVideo2, holder: HolderVideo) {
@@ -116,8 +120,6 @@ class AdapterVideo2(
         var titleTv2: TextView = itemView.findViewById(R.id.titleTv2)
         var timeTv2: TextView = itemView.findViewById(R.id.timeTv2)
         var progressBar2: ProgressBar = itemView.findViewById(R.id.progressBar2)
-
-
 
 
     }
